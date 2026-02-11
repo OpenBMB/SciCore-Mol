@@ -1,0 +1,100 @@
+# Layer2 Stage 2 训练配置 (v7 - Soft-Bin + Deeper Unfreeze)
+#
+# Changes from v6:
+#   1. yield_mode: "soft_bin_only" (KL-div with soft labels, ordinal-aware)
+#   2. yield_soft_bin_temperature: 0.08 (sharper than default 0.1)
+#   3. unfreeze_top_layers: 3 (deeper backbone tuning)
+#   4. backbone_lr: 3e-5 (slightly conservative for 3 layers)
+#   5. phase_b_step: 2500 (longer Phase A for stable head warmup)
+#   6. patience: 80 (more patience for soft-label convergence)
+#
+# Two-Phase Training:
+#   Phase A (step 0 -> 2500): Frozen backbone, head warmup
+#   Phase B (step 2500+): Unfreeze top 3 layers + EMA
+
+# 模型配置
+mol_emb_dim: 256
+hidden_dim: 768
+n_layers: 8
+n_heads: 12
+dropout: 0.2
+num_roles: 11
+num_token_types: 2
+tau: 0.07
+learnable_tau: true
+symmetric_ince: true
+use_projection_head: true
+
+# Head dropout
+head_dropout: 0.15
+
+# 数据配置
+data_path: "/data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_train.jsonl"
+val_data_path: "/data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_val.jsonl"
+use_indexed_dataset: true
+
+# 训练配置
+batch_size: 64
+weight_decay: 0.05
+num_epochs: 500
+warmup_steps: 300
+min_lr: 0.000001
+grad_accumulation_steps: 2
+save_steps: 600
+eval_steps: 200
+log_steps: 50
+num_workers: 4
+
+# ===== Two-Phase Strategy =====
+freeze_backbone: true
+
+# Phase A
+head_lr: 0.002
+yield_label_smoothing: 0.0
+
+# Phase transition
+phase_b_step: 2500
+
+# Phase B
+unfreeze_top_layers: 3
+backbone_lr: 0.00003
+phase_b_head_lr: 0.0005
+phase_b_warmup: 300
+phase_b_label_smoothing: 0.0
+
+# EMA
+ema_decay: 0.999
+
+# Best model selection
+best_selection: "composite"
+composite_alpha: 0.3
+
+# Early stopping
+patience: 80
+
+# AMP
+use_amp: true
+
+# Loss 权重
+emb_lambda: 1.0
+amt_lambda: 0.3
+yield_weight: 5.0
+yield_mode: "soft_bin_only"
+yield_soft_bin_temperature: 0.08
+yield_class_weights: false
+
+# Masking (yield-heavy)
+p_forward: 0.15
+p_retro: 0.10
+p_condition: 0.05
+p_random: 0.05
+p_yield_full: 0.35
+p_yield_with_product: 0.30
+
+# Resume from Stage 1
+resume_from: "/data1/chenyuxuan/Layer2/ckpt/0115/layer2_pretrain.pt"
+
+# 其他
+tf32: true
+global_seed: 42
+results_dir: "/data1/chenyuxuan/checkpoint/layer2_stage2"
