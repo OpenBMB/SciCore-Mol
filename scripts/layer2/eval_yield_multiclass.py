@@ -10,10 +10,10 @@ by merging the 10-bin logits into coarser bins.
    3-class: [0,1,2] [3,4,5,6] [7,8,9] (Low/Mid/High)
 
 Usage:
-    cd /data1/chenyuxuan/MHMLM
+    cd ${SCICORE_ROOT:-/path/to/scicore-mol}
     python scripts/layer2/eval_yield_multiclass.py \
         --checkpoints v4=/path/to/v4.pt v5=/path/to/v5.pt \
-        --data /data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_test.jsonl
+        --data ${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_test.jsonl
 """
 
 import sys

@@ -150,7 +150,7 @@ def main():
     ap.add_argument(
         "--evaluator_path",
         type=str,
-        default="/data1/chenyuxuan/MHMLM/eval/eval_smolinstruct_batch.py",
+        default="${SCICORE_ROOT:-/path/to/scicore-mol}/eval/eval_smolinstruct_batch.py",
         help="absolute path to eval_smolinstruct_batch.py",
     )
     ap.add_argument("--seed", type=int, default=42)

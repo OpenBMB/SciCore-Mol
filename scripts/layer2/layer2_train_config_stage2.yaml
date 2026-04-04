@@ -1,4 +1,4 @@
-# Layer2 Stage 2 训练配置 (v2 - improved)
+# Layer2 Stage 2 trainingconfig (v2 - improved)
 # Stage 1: InfoNCE + Amount (500 epochs, hidden=768, 8 layers)
 # Stage 2: + Yield prediction + projection head + optimized embedding
 #
@@ -15,7 +15,7 @@
 # - Yield-focused masking (45% yield tasks)
 # - AMP enabled
 
-# 模型配置 (must match Stage 1 checkpoint)
+# modelconfig (must match Stage 1 checkpoint)
 mol_emb_dim: 256
 hidden_dim: 768
 n_layers: 8
@@ -28,12 +28,12 @@ learnable_tau: true
 symmetric_ince: true
 use_projection_head: true
 
-# 数据配置 (decompressed)
-data_path: "/data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_train.jsonl"
-val_data_path: "/data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_val.jsonl"
+# dataconfig (decompressed)
+data_path: "${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_train.jsonl"
+val_data_path: "${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_val.jsonl"
 use_indexed_dataset: true
 
-# 训练配置
+# trainingconfig
 batch_size: 64
 learning_rate: 0.0003
 weight_decay: 0.05
@@ -49,7 +49,7 @@ num_workers: 4
 # AMP (Mixed Precision)
 use_amp: true
 
-# Loss 权重
+# Loss weight
 emb_lambda: 1.0
 amt_lambda: 0.3
 yield_weight: 3.0
@@ -67,9 +67,9 @@ p_yield_full: 0.25
 p_yield_with_product: 0.25
 
 # Resume from Stage 1
-resume_from: "/data1/chenyuxuan/Layer2/ckpt/0115/layer2_pretrain.pt"
+resume_from: "${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/ckpt/0115/layer2_pretrain.pt"
 
-# 其他
+#
 tf32: true
 global_seed: 42
-results_dir: "/data1/chenyuxuan/checkpoint/layer2_stage2"
+results_dir: "${CHECKPOINT_DIR:-/path/to/checkpoints}/layer2_stage2"

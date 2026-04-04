@@ -8,10 +8,10 @@ Standalone eval on test set reporting per-task metrics:
 - Amount: MAE per channel (moles/mass/volume)
 
 Usage:
-    cd /data1/chenyuxuan/MHMLM/
+    cd ${SCICORE_ROOT:-/path/to/scicore-mol}/
     python scripts/layer2/eval_layer2_model.py \
         --checkpoint /path/to/checkpoint.pt \
-        --data /data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_test.jsonl \
+        --data ${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_test.jsonl \
         [--batch_size 64] [--num_workers 4]
 """
 

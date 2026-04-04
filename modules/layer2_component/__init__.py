@@ -1,6 +1,6 @@
 """
 Layer2 Component
-用于反应产率预测和任务相关 embedding 生成
+forreactionyieldpredictiontask embedding generate
 """
 
 from .Layer2Inferer import Layer2Inferer

@@ -1,28 +1,28 @@
 seed: 42
 
 paths:
-  llm_name_or_path: "/data1/chenyuxuan/checkpoint/qwen3-8b-cpt/v4-20251208-164944/checkpoint-14000"
-  output_dir: "/data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/GNN_nofreeze_20260128"
-  gnn_state_dict_path: "/data1/lvchangwei/GNN/Project/GVP/checkpoints_256_wo/gvp_weights_best.pt"
-  gnn_mlp_state_dict_path: "/data1/chenyuxuan/MSMLM/model/gnn_mlp_qwen/mlp_adapter.pt"
-  mlp_token_classifier_path: "/data1/lvchangwei/LLM/Lora/qwen3_mlp_token_head.pt"
+  llm_name_or_path: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3-8b-cpt/v4-20251208-164944/checkpoint-14000"
+  output_dir: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/GNN_nofreeze_20260128"
+  gnn_state_dict_path: "${GVP_CHECKPOINT:-/path/to/gvp_weights.pt}"
+  gnn_mlp_state_dict_path: "${DATA_DIR:-/path/to/data}/MSMLM/model/gnn_mlp_qwen/mlp_adapter.pt"
+  mlp_token_classifier_path: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_mlp_token_head.pt"
   deepspeed_config: "configs/deepspeed_zero3.json"
 
 tokens:
   mol_token: "<mol>"
 
 data:
-  dataset_path: "/data1/chenyuxuan/MSMLM/code/data/epoch1_preprocessed_qwen_test.jsonl"
-  epoch1_output: "/data1/chenyuxuan/MSMLM/code/data/epoch1_preprocessed_qwen_test.jsonl"
-  epoch2_output: "/data1/chenyuxuan/MSMLM/code/data/epoch1_preprocessed_qwen_test.jsonl"
-  qm9_stats_file: /data1/chenyuxuan/MSMLM/code/data/epoch1_preprocessed_qm9_stats.json
+  dataset_path: "${DATA_DIR:-/path/to/data}/MSMLM/code/data/epoch1_preprocessed_qwen_test.jsonl"
+  epoch1_output: "${DATA_DIR:-/path/to/data}/MSMLM/code/data/epoch1_preprocessed_qwen_test.jsonl"
+  epoch2_output: "${DATA_DIR:-/path/to/data}/MSMLM/code/data/epoch1_preprocessed_qwen_test.jsonl"
+  qm9_stats_file: ${DATA_DIR:-/path/to/data}/MSMLM/code/data/epoch1_preprocessed_qm9_stats.json
   epoch1_qm9_max_samples: null
   use_cache: true
   debug_max_samples: null
 
 
 train:
-  # 只用 LM loss，不加 GNN supervised loss
+  # LM loss only, no GNN supervised loss
   use_gnn_tasks: false
   lambda_gnn: 0.0
 
@@ -39,7 +39,7 @@ train:
   bf16: true
   gradient_checkpointing: true
   packing: false
-  dataloader_pin_memory: false  # 设置为 false 以避免内存映射问题
+  dataloader_pin_memory: false  # set to false to avoid memory mapping issues
   lr_scheduler_type: "cosine"
   max_retries: 3
   retry_backoff_sec: 30
@@ -57,7 +57,7 @@ train:
   use_offline_spans: false
   offline_tagging_batch_size: 128
 
-  # 冻结策略：LLM 冻结，GVP + mol_adapter 训练
+  # freeze strategy: LLM frozen, GVP + mol_adapter trainable
   freeze_llm: true
   freeze_gnn: false
   freeze_mol_adapter: false

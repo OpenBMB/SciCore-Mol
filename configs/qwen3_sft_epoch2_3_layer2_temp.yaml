@@ -1,21 +1,21 @@
 data:
-  dataset_path: /data1/chenyuxuan/MHMLM/scripts/layer2_llm/data/training_data_product_dev.jsonl
+  dataset_path: ${SCICORE_ROOT:-/path/to/scicore-mol}/scripts/layer2_llm/data/training_data_product_dev.jsonl
   debug_max_samples: null
-  epoch1_output: /data1/chenyuxuan/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl
+  epoch1_output: ${DATA_DIR:-/path/to/data}/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl
   epoch1_qm9_max_samples: null
-  epoch2_output: /data1/chenyuxuan/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl
+  epoch2_output: ${DATA_DIR:-/path/to/data}/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl
   qm9_stats_file: null
   use_cache: true
 network:
   proxy: http://127.0.0.1:7899
 paths:
-  checkpoint_dir: /data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200
+  checkpoint_dir: ${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200
   deepspeed_config: configs/deepspeed_zero3.json
-  gnn_mlp_state_dict_path: /data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200
-  gnn_state_dict_path: /data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200
-  llm_name_or_path: /data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200/llm
-  mlp_token_classifier_path: /data1/lvchangwei/LLM/Lora/qwen3_mlp_token_head.pt
-  output_dir: /data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze_20260128
+  gnn_mlp_state_dict_path: ${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200
+  gnn_state_dict_path: ${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200
+  llm_name_or_path: ${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200/llm
+  mlp_token_classifier_path: ${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_mlp_token_head.pt
+  output_dir: ${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze_20260128
 seed: 42
 tokens:
   mol_token: <mol>

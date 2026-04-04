@@ -25,8 +25,8 @@ Output:
 Usage:
   conda activate interns1_chembench
   CUDA_VISIBLE_DEVICES=0 python eval_chembench4k_interns1mini_alltasks_logprob.py \
-    --model_path /data1/chenyuxuan/base_model/Intern-S1-mini \
-    --out_dir /data1/chenyuxuan/MHMLM/eval_chembench_interns1mini_alltasks_logprob \
+    --model_path ${DATA_DIR:-/path/to/data}/base_model/Intern-S1-mini \
+    --out_dir ${SCICORE_ROOT:-/path/to/scicore-mol}/eval_chembench_interns1mini_alltasks_logprob \
     --device cuda:0 --dtype bf16 \
     --split test --use_hf 1 \
     --max_items -1 \

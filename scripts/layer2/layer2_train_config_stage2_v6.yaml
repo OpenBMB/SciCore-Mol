@@ -1,20 +1,20 @@
-# Layer2 Stage 2 训练配置 (v6 - Bin-Only Classification)
+# Layer2 Stage 2 trainingconfig (v6 - Bin-Only Classification)
 #
 # Key changes from v5:
-#   1. yield_mode: "bin_only" (drop regression head entirely)
-#   2. Higher yield_weight (5.0) since no regression to share gradient
-#   3. Increased yield task sampling (60% of tasks involve yield)
-#   4. Longer Phase A (2000 steps) for better head warmup
-#   5. yield_class_weights: true (handle imbalanced bins)
-#   6. Stronger label smoothing in Phase B (0.15)
+# 1. yield_mode: "bin_only" (drop regression head entirely)
+# 2. Higher yield_weight (5.0) since no regression to share gradient
+# 3. Increased yield task sampling (60% of tasks involve yield)
+# 4. Longer Phase A (2000 steps) for better head warmup
+# 5. yield_class_weights: true (handle imbalanced bins)
+# 6. Stronger label smoothing in Phase B (0.15)
 #
 # Two-Phase Training (same structure as v5):
-#   Phase A (step 0 → 2000): Frozen backbone, head warmup
-#   Phase B (step 2000+): Unfreeze top 2 layers + EMA
+# Phase A (step 0 → 2000): Frozen backbone, head warmup
+# Phase B (step 2000+): Unfreeze top 2 layers + EMA
 #
 # Best model selection: composite = yield_bin_acc + 0.3 * emb_top1
 
-# 模型配置 (must match Stage 1 checkpoint)
+# modelconfig (must match Stage 1 checkpoint)
 mol_emb_dim: 256
 hidden_dim: 768
 n_layers: 8
@@ -30,12 +30,12 @@ use_projection_head: true
 # Head dropout
 head_dropout: 0.15
 
-# 数据配置
-data_path: "/data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_train.jsonl"
-val_data_path: "/data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_val.jsonl"
+# dataconfig
+data_path: "${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_train.jsonl"
+val_data_path: "${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_val.jsonl"
 use_indexed_dataset: true
 
-# 训练配置
+# trainingconfig
 batch_size: 64
 weight_decay: 0.05
 num_epochs: 500
@@ -77,7 +77,7 @@ patience: 60
 # AMP
 use_amp: true
 
-# Loss 权重
+# Loss weight
 emb_lambda: 1.0
 amt_lambda: 0.3
 yield_weight: 5.0
@@ -93,9 +93,9 @@ p_yield_full: 0.35
 p_yield_with_product: 0.30
 
 # Resume from Stage 1
-resume_from: "/data1/chenyuxuan/Layer2/ckpt/0115/layer2_pretrain.pt"
+resume_from: "${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/ckpt/0115/layer2_pretrain.pt"
 
-# 其他
+#
 tf32: true
 global_seed: 42
-results_dir: "/data1/chenyuxuan/checkpoint/layer2_stage2"
+results_dir: "${CHECKPOINT_DIR:-/path/to/checkpoints}/layer2_stage2"

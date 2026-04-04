@@ -1,30 +1,30 @@
 seed: 42
 
 paths:
-  llm_name_or_path: "/data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200/llm"
-  output_dir: "/data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze_20260128"
-  gnn_state_dict_path: "/data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200"
-  gnn_mlp_state_dict_path: "/data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200"
-  mlp_token_classifier_path: "/data1/lvchangwei/LLM/Lora/qwen3_mlp_token_head.pt"
+  llm_name_or_path: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200/llm"
+  output_dir: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze_20260128"
+  gnn_state_dict_path: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200"
+  gnn_mlp_state_dict_path: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200"
+  mlp_token_classifier_path: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_mlp_token_head.pt"
   deepspeed_config: "configs/deepspeed_zero3.json"
-  # 注意：paths.checkpoint_dir 需要在跑完 epoch1 后，手动改成实际的 checkpoint-XXXX 目录
-  # 例如：/data1/chenyuxuan/MSMLM/model/mistral_cpt_sft_twoepoch/epoch1/checkpoint-XXX
-  checkpoint_dir: "/data1/chenyuxuan/checkpoint/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200"
+  # NOTE: paths.checkpoint_dir must be manually set to the actual checkpoint-XXXX directory after epoch1
+  # e.g.: ${DATA_DIR:-/path/to/data}/MSMLM/model/mistral_cpt_sft_twoepoch/epoch1/checkpoint-XXX
+  checkpoint_dir: "${CHECKPOINT_DIR:-/path/to/checkpoints}/qwen3_8b_cpt_sft/epoch2/LLM_nofreeze/checkpoint-4200"
 
 tokens:
   mol_token: "<mol>"
 
 data:
-  dataset_path: "/data1/chenyuxuan/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl"
-  epoch1_output: "/data1/chenyuxuan/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl"
-  epoch2_output: "/data1/chenyuxuan/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl"
+  dataset_path: "${DATA_DIR:-/path/to/data}/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl"
+  epoch1_output: "${DATA_DIR:-/path/to/data}/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl"
+  epoch2_output: "${DATA_DIR:-/path/to/data}/train_data/SFT_DATA/chat_data_msg/sft_2.5_to_1_30k_balanced.jsonl"
   qm9_stats_file: null
   epoch1_qm9_max_samples: null
   use_cache: true
   debug_max_samples: null
 
 train:
-  # 纯 SFT，只训 LLM
+  # pure SFT, train LLM only
   use_gnn_tasks: false
   lambda_gnn: 0.0
 
@@ -41,7 +41,7 @@ train:
   bf16: true
   gradient_checkpointing: true
   packing: false
-  dataloader_pin_memory: false  # 设置为 false 以避免内存映射问题
+  dataloader_pin_memory: false  # set to false to avoid memory mapping issues
   lr_scheduler_type: "cosine"
   max_retries: 3
   retry_backoff_sec: 30
@@ -59,7 +59,7 @@ train:
   use_offline_spans: false
   offline_tagging_batch_size: 128
 
-  # 冻结策略：只训 LLM，GVP / mol_adapter 冻结
+  # freeze strategy: only train LLM, GVP / mol_adapter frozen
   freeze_llm: false
   freeze_gnn: false
   freeze_mol_adapter: false

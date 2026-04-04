@@ -15,7 +15,6 @@ lib64/
 parts/
 sdist/
 var/
-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -24,7 +23,6 @@ wheels/
 .venv/
 venv/
 ENV/
-env/
 
 # IDE
 .vscode/
@@ -53,10 +51,10 @@ generated_molecules*.txt
 logs/
 swanlog/
 
-# Agent docs
+# Agent docs (internal)
 agent-docs/
 
-# Data
+# Data files
 data/
 *.csv
 *.jsonl
@@ -64,22 +62,57 @@ data/
 # OS
 .DS_Store
 Thumbs.db
-ACTIVE_CONTEXT.md
 
-# UV
+# UV / uv cache
 .uv/
+.uv-cache/
+uv.lock
 
-# Claude Code
+# Claude Code (internal)
 CLAUDE.md
+ACTIVE_CONTEXT.md
+MEMORY.md
 
 # Backup files
 *.bak
 *.bak_*
 
-# Training logs (root level)
-train_stage2*.log
-v*_train.log
-diagnose_yield.py
+# ===== Open-source exclusions =====
+
+# Internal documentation
+docs/superpowers/
+
+# CUDA installer and prebuilt wheels (large binaries)
+env/cuda-12.1/
+env/cuda-installer/
+wheels/
+
+# Server admin scripts
+group_share/
+
+# Hidden artifacts (cached pyc)
+.hidden_artifacts/
+
+# Temporary scripts and data
+tmp/
+
+# Root-level internal scripts
+score_ord_cpt_sft.py
+score_ord_table.py
+patch_inline_mol.py
+patch_eval_chembench.py
+patch_layer2_chembench.py
+generate_report.py
+sft_tester.py
+train_sft.py
+
+# Cotrain internal logs and data
+cotrain_llm_diffusion/logs/
+cotrain_llm_diffusion/*.jsonl
+
+# Training outputs and backups
+modules/multitask_bridge_diffusion/backups/
+modules/multitask_bridge_diffusion/outputs/
 
 # Eval result directories (generated, not code)
 eval_chembench_gpt5/
@@ -90,3 +123,22 @@ eval/eval_smol_gpt5/
 eval/eval_smol_instruct_gpt4o_debug/
 eval/eval_smol_interns1mini_200each/
 modules/artifacts/
+
+# Training logs (root level)
+train_stage2*.log
+v*_train.log
+diagnose_yield.py
+
+# Pytest cache
+.pytest_cache/
+
+# Environment validation
+env/python/
+
+# Eval outputs and results
+eval/*/eval_output/
+eval/*/summary.json
+eval/eval_*/
+eval/drug_optim/tmp_*.py
+eval/drug_optim/testers/
+eval/drug_optim/scoring/test*.py

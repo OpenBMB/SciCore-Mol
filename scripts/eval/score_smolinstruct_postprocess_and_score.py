@@ -59,7 +59,7 @@ TYPE_NAMES = {"SMILES", "FORMULA", "NUMBER", "BOOLEAN"}
 # ---------------- Metrics import ----------------
 _metrics_imported = False
 try:
-    ref_metrics_path = "/data1/lvchangwei/LLM/SMolInstruct/utils"
+    ref_metrics_path = "${SMOLINSTRUCT_DIR:-/path/to/SMolInstruct}/utils"
     if os.path.exists(ref_metrics_path):
         if ref_metrics_path not in sys.path:
             sys.path.insert(0, ref_metrics_path)

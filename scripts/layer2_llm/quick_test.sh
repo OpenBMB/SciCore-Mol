@@ -1,122 +1,122 @@
 #!/bin/bash
-# Layer2 快速测试脚本
+# Layer2 testscript
 
 set -e
 
-PROJECT_ROOT="/data1/chenyuxuan/MHMLM"
+PROJECT_ROOT="${SCICORE_ROOT:-/path/to/scicore-mol}"
 cd ${PROJECT_ROOT}
 
 echo "============================================"
-echo "Layer2 完整测试流程"
+echo "Layer2 testpipeline"
 echo "============================================"
 
-# 1. 检查数据
+# 1. checkdata
 echo ""
-echo "1. 检查数据..."
-LAYER2_DATA="/data1/chenyuxuan/Layer2/data"
+echo "1. checkdata..."
+LAYER2_DATA="${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data"
 if [ ! -f "${LAYER2_DATA}/ord_layer2/layer2_test.jsonl" ]; then
-    echo "⚠️  测试数据不存在: ${LAYER2_DATA}/ord_layer2/layer2_test.jsonl"
-    echo "   请确保数据已下载"
+ echo "⚠️ testdata: ${LAYER2_DATA}/ord_layer2/layer2_test.jsonl"
+ echo " datadownload"
 else
-    echo "✅ 数据检查通过"
+ echo "✅ datacheckvia"
 fi
 
-# 2. 检查配置文件
+# 2. checkconfigfile
 echo ""
-echo "2. 检查配置文件..."
+echo "2. checkconfigfile..."
 if [ ! -f "modules/layer2_component/layer2_config.yaml" ]; then
-    echo "❌ Layer2 配置文件不存在"
-    exit 1
+ echo "❌ Layer2 configfile"
+ exit 1
 fi
 if [ ! -f "scripts/layer2/layer2_train_config.yaml" ]; then
-    echo "❌ Layer2 训练配置文件不存在"
-    exit 1
+ echo "❌ Layer2 trainingconfigfile"
+ exit 1
 fi
-echo "✅ 配置文件检查通过"
+echo "✅ configfilecheckvia"
 
-# 3. 测试 Python 导入
+# 3. test Python 
 echo ""
-echo "3. 测试 Python 导入..."
+echo "3. test Python ..."
 python -c "
 import sys
 sys.path.insert(0, '${PROJECT_ROOT}')
 
 try:
-    from modules.layer2_component.Layer2Inferer import Layer2Inferer
-    print('✅ Layer2Inferer 导入成功')
+ from modules.layer2_component.Layer2Inferer import Layer2Inferer
+ print('✅ Layer2Inferer success')
 except Exception as e:
-    print(f'❌ Layer2Inferer 导入失败: {e}')
-    sys.exit(1)
+ print(f'❌ Layer2Inferer fail: {e}')
+ sys.exit(1)
 
 try:
-    from sft_tester import MolAwareGenerator2
-    print('✅ MolAwareGenerator2 导入成功')
+ from sft_tester import MolAwareGenerator2
+ print('✅ MolAwareGenerator2 success')
 except Exception as e:
-    print(f'❌ MolAwareGenerator2 导入失败: {e}')
-    sys.exit(1)
+ print(f'❌ MolAwareGenerator2 fail: {e}')
+ sys.exit(1)
 "
 
-# 4. 测试 JSON 解析
+# 4. test JSON parse
 echo ""
-echo "4. 测试 JSON 解析..."
+echo "4. test JSON parse..."
 python -c "
 import json
 import re
 
-# 测试 JSON 格式
+# test JSON format
 test_json = '''
 {
-    \"molecules\": [
-        {
-            \"smiles\": \"CCO\",
-            \"role\": \"REACTANT\",
-            \"amount_info\": {
-                \"moles\": 1.0
-            }
-        }
-    ]
+ \"molecules\": [
+ {
+ \"smiles\": \"CCO\",
+ \"role\": \"REACTANT\",
+ \"amount_info\": {
+ \"moles\": 1.0
+ }
+ }
+ ]
 }
 '''
 
 try:
-    parsed = json.loads(test_json)
-    if 'molecules' in parsed:
-        print('✅ JSON 格式验证通过')
-    else:
-        print('❌ JSON 格式验证失败')
-        sys.exit(1)
+ parsed = json.loads(test_json)
+ if 'molecules' in parsed:
+ print('✅ JSON formatvalidatevia')
+ else:
+ print('❌ JSON formatvalidatefail')
+ sys.exit(1)
 except Exception as e:
-    print(f'❌ JSON 解析失败: {e}')
-    sys.exit(1)
+ print(f'❌ JSON parsefail: {e}')
+ sys.exit(1)
 "
 
-# 5. 检查依赖
+# 5. checkdependency
 echo ""
-echo "5. 检查依赖..."
+echo "5. checkdependency..."
 python -c "
 try:
-    import json_repair
-    print('✅ json-repair 已安装')
+ import json_repair
+ print('✅ json-repair install')
 except ImportError:
-    print('⚠️  json-repair 未安装，建议安装: pip install json-repair')
+ print('⚠️ json-repair installinstall: pip install json-repair')
 
 try:
-    import torch
-    print(f'✅ torch 已安装: {torch.__version__}')
+ import torch
+ print(f'✅ torch install: {torch.__version__}')
 except ImportError:
-    print('❌ torch 未安装')
-    sys.exit(1)
+ print('❌ torch install')
+ sys.exit(1)
 "
 
 echo ""
 echo "============================================"
-echo "✅ 基础检查完成！"
+echo "✅ checkcomplete"
 echo "============================================"
 echo ""
-echo "下一步："
-echo "1. 运行 Layer2 训练: bash scripts/layer2/train_layer2.py"
-echo "2. 运行 Layer2 评测: bash scripts/run/run_eval_layer2_testset.sh"
-echo "3. 生成训练数据: python scripts/layer2_llm/generate_training_data.py"
-echo "4. 训练 LLM+Layer2: bash scripts/layer2_llm/train_layer2_llm.sh"
 echo ""
-echo "详细指令请参考: LAYER2_TEST_INSTRUCTIONS.md"
+echo "1. run Layer2 training: bash scripts/layer2/train_layer2.py"
+echo "2. run Layer2 evaluation: bash scripts/run/run_eval_layer2_testset.sh"
+echo "3. generatetrainingdata: python scripts/layer2_llm/generate_training_data.py"
+echo "4. training LLM+Layer2: bash scripts/layer2_llm/train_layer2_llm.sh"
+echo ""
+echo ": LAYER2_TEST_INSTRUCTIONS.md"

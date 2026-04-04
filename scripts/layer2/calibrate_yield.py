@@ -6,23 +6,23 @@ Learns per-class bias correction on validation logits and validates
 the improvement with K-fold cross-validation or bootstrap resampling.
 
 Usage:
-    cd /data1/chenyuxuan/MHMLM
+    cd ${SCICORE_ROOT:-/path/to/scicore-mol}
     # K-fold validation (recommended)
     python scripts/layer2/calibrate_yield.py \
         --checkpoint /path/to/checkpoint.pt \
-        --data /data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_val.jsonl \
+        --data ${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_val.jsonl \
         --mode kfold --kfold 5
 
     # Bootstrap validation
     python scripts/layer2/calibrate_yield.py \
         --checkpoint /path/to/checkpoint.pt \
-        --data /data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_val.jsonl \
+        --data ${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_val.jsonl \
         --mode bootstrap --bootstrap 200
 
     # Both modes
     python scripts/layer2/calibrate_yield.py \
         --checkpoint /path/to/checkpoint.pt \
-        --data /data1/chenyuxuan/Layer2/data/ord_layer2_v2/layer2_val.jsonl \
+        --data ${SCICORE_ROOT:-/path/to/scicore-mol}/Layer2/data/ord_layer2_v2/layer2_val.jsonl \
         --mode both
 """
 

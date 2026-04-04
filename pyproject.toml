@@ -1,7 +1,7 @@
 [project]
-name = "mhmlm"
+name = "scicore-mol"
 version = "0.1.0"
-description = "Molecular Hierarchical Multi-Language Model with LDMol diffusion"
+description = "SciCore-Mol: Augmenting LLMs with Pluggable Molecular Cognition Modules"
 requires-python = ">=3.10"
 dependencies = [
     # 核心深度学习框架（参考 llam3.2 环境版本，固定版本以确保兼容性）
@@ -30,7 +30,7 @@ dependencies = [
     # GVP 相关依赖
     "torch-scatter>=2.1.0",
     "torch-cluster>=1.6.0",
-    "gvp @ file:///data1/chenyuxuan/MSMLM/gvp-pytorch-main",
+    "gvp @ file://${DATA_DIR:-/path/to/data}/MSMLM/gvp-pytorch-main",
 
     # 文本处理
     "nltk>=3.8.1",
@@ -54,7 +54,7 @@ dependencies = [
 
     # ✅ FlashAttention：直接指定 torch2.3 对应 wheel（避免源码编译/避免 nvcc）
     # 只在 Linux + Python 3.10 下启用
-    "flash-attn @ file:///data1/chenyuxuan/MHMLM/wheels/flash_attn-2.5.8+cu122torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl ; sys_platform == 'linux' and python_version == '3.10'",
+    "flash-attn @ file://${SCICORE_ROOT:-/path/to/scicore-mol}/wheels/flash_attn-2.5.8+cu122torch2.3cxx11abiFALSE-cp310-cp310-linux_x86_64.whl ; sys_platform == 'linux' and python_version == '3.10'",
 ]
 
 [build-system]
