@@ -5,15 +5,15 @@
 <a href='#'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a>
 
 **Yuxuan Chen**<sup>1</sup>,
-**Changwei Lv**<sup>1</sup>,
-**Yunduo Xiao**<sup>1</sup>,
-**Wei Wang**<sup>1</sup>,
-**Li Jin**<sup>1</sup>,
-**Yukun Yan**<sup>1</sup>,
-**Zheni Zeng**<sup>1†</sup>,
-**Zhiyuan Liu**<sup>1</sup>
+**Changwei Lv**<sup>2</sup>,
+**Yunduo Xiao**<sup>2</sup>,
+**Wei Wang**<sup>3</sup>,
+**Li Jin**<sup>3</sup>,
+**Yukun Yan**<sup>4</sup>,
+**Zheni Zeng**<sup>5†</sup>,
+**Zhiyuan Liu**<sup>4</sup>
 
-<sup>1</sup>Tsinghua University &nbsp;&nbsp; <sup>†</sup>Corresponding Author
+<sup>4</sup>Tsinghua University &nbsp;&nbsp; <sup>†</sup>Corresponding Author
 
 </div>
 
@@ -234,11 +234,11 @@ SciCore-Mol/
 ## 🥰 Citation
 
 ```bibtex
-@article{chen2025scicoremol,
+@article{chen2026scicoremol,
   title={SciCore-Mol: Augmenting Large Language Models with Pluggable Molecular Cognition Modules},
-  author={Chen, Yuxuan and Lv, Changwei and Xiao, Yunduo and Wang, Wei and Jin, Li and Yan, Yukun and Zeng, Zheni and Liu, Zhiyuan},
+  author={},
   journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2025}
+  year={2026}
 }
 ```
 
@@ -251,4 +251,4 @@ chenyuxuan225@gmail.com
 
 ## 📜 License
 
-This project is dual-licensed under [MIT](LICENSE-MIT) and [Apache 2.0](LICENSE-APACHE). You may choose either license at your option.
+This project is dual-licensed under [MIT](LICENSE-MIT) and [Apache 2.0](LICENSE-APACHE).
