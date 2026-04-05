@@ -1838,29 +1838,23 @@ Output only the JSON, no additional text:"""
 
    
 if __name__ == "__main__":
-    # 单卡模式配置
-    CONFIG_SINGLE = {
-        "ckpt_dir": "/data1/chenyuxuan/MSMLM/model/llama3.2-chem-sft-gnn/1125_llm/epoch2/refine_ner",
-        "device": "cuda:0",
-        "device_map": None,  # 单卡模式
-        "dtype": "bf16",
+    import argparse
+    _p = argparse.ArgumentParser()
+    _p.add_argument("--ckpt_dir", default=os.environ.get("CHECKPOINT_DIR", ""), help="Path to model checkpoint")
+    _p.add_argument("--token_classifier_path", default=os.environ.get("TOKEN_CLASSIFIER_PATH", ""), help="Path to token classifier .pt file")
+    _p.add_argument("--device", default="cuda:0")
+    _p.add_argument("--multi_gpu", action="store_true", help="Use device_map=auto for multi-GPU")
+    _p.add_argument("--dtype", default="bf16")
+    _args = _p.parse_args()
+
+    CONFIG = {
+        "ckpt_dir": _args.ckpt_dir,
+        "device": None if _args.multi_gpu else _args.device,
+        "device_map": "auto" if _args.multi_gpu else None,
+        "dtype": _args.dtype,
         "debug": True,
-        "token_classifier_path": "/data1/lvchangwei/LLM/Lora/llama_mlp_token_classifier.pt",
-        
-    
+        "token_classifier_path": _args.token_classifier_path,
     }
-    
-    # 多卡模式配置（自动分配到所有可用GPU）
-    CONFIG_MULTI = {
-        "ckpt_dir": "/data1/chenyuxuan/MSMLM/model/llama3.2-chem-sft-gnn/1125_llm/epoch2/refine_ner",
-        "device_map": "auto",  # 多卡模式：自动分配模型到所有可用GPU
-        "dtype": "bf16",
-        "debug": True,
-        "token_classifier_path": "/data1/lvchangwei/LLM/Lora/llama_mlp_token_classifier.pt",
-    }
-    
-    # 使用单卡配置（如需多卡，改为 CONFIG_MULTI）
-    CONFIG = CONFIG_SINGLE
 
     gen = MolAwareGenerator2()
     gen.load(CONFIG)
