@@ -20,7 +20,7 @@ Large language models (LLMs) are increasingly popular in professional domains, w
 
 We propose **SciCore-Mol**, a novel paradigm to augment the LLM with pluggable external cognitive modules, including a **GVP encoder**, a **diffusion generator**, and a **numerical-sensitive Transformer** (Reaction Transformer). This architecture preserves the general capabilities while providing specialized molecular perception for LLMs. With a two-stage alignment mechanism, external modules are invoked via special tokens and fused at the hidden-state level, enabling the LLM to deeply understand molecular information without sacrificing its core reasoning process.
 
-<p align="center"><img src="figs/fig2.png" width="90%"></p>
+<p align="center"><img src="figs/fig3.png" width="90%"></p>
 
 ## ⚙️ Setup
 
