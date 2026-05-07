@@ -3,6 +3,7 @@
 
 <a href='SciCore_Mol_Technical_Report.pdf'><img src='https://img.shields.io/badge/Paper-Technical_Report-red'></a>
 <a href='https://huggingface.co/openbmb/SciCore-Mol'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a>
+<a href='https://chenyxyx-scicore-mol.hf.space'><img src='https://img.shields.io/badge/Demo-Hugging_Face_Space-0f8b7d'></a>
 
 **Yuxuan Chen**<sup>1</sup>,
 **Changwei Lv**<sup>2</sup>,
