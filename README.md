@@ -1,8 +1,8 @@
 <div align="center">
 <h1>SciCore-Mol: Augmenting Large Language Models with Pluggable Molecular Cognition Modules</h1>
 
-<a href='#'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
-<a href='#'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a>
+<a href='SciCore_Mol_Technical_Report.pdf'><img src='https://img.shields.io/badge/Paper-Technical_Report-red'></a>
+<a href='https://huggingface.co/openbmb/SciCore-Mol'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a>
 
 **Yuxuan Chen**<sup>1</sup>,
 **Changwei Lv**<sup>2</sup>,
