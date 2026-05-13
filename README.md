@@ -5,7 +5,7 @@
 <a href='https://huggingface.co/openbmb/SciCore-Mol'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Models-blue'></a>
 <a href='https://chenyxyx-scicore-mol.hf.space'><img src='https://img.shields.io/badge/Demo-Hugging_Face_Space-0f8b7d'></a>
 
-**Yuxuan Chen**<sup>1</sup>, **Changwei Lv**<sup>2</sup>, **Yunduo Xiao**<sup>2</sup>, **Yukun Yan**<sup>2</sup>, **Zheni Zeng**<sup>*3</sup>, and **Zhiyuan Liu**<sup>2</sup>
+**Yuxuan Chen**<sup>1</sup>, **Changwei Lv**<sup>2</sup>, **Yunduo Xiao**<sup>2</sup>, **Zhongjing Du**<sup>1</sup>, **Daquan Zhou**<sup>1</sup>, **Yukun Yan**<sup>2</sup>, **Zheni Zeng**<sup>*3</sup>, and **Zhiyuan Liu**<sup>2</sup>
 
 <sup>1</sup>School of Electronic and Computer Engineering, Peking University, Shenzhen, China<br>
 <sup>2</sup>Tsinghua University, Beijing, China<br>
